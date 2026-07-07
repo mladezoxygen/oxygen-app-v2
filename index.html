@@ -1216,6 +1216,65 @@ input:checked+.slider{background:var(--purple)}
   .chat-input{min-height:42px}
   .chat-bubble-wrap{max-width:80%}
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   OXYGEN V2 — GLOBAL COHESION PASS  (unify the whole app into one language)
+   ═══════════════════════════════════════════════════════════════════════════ */
+/* ── Unified card/section headers everywhere ── */
+.chart-title,.cal-title{font-family:var(--font-display);font-size:1.04rem;font-weight:600;color:var(--white);letter-spacing:-.01em;margin-bottom:16px;display:flex;align-items:center;gap:9px}
+/* ── People avatars = circles everywhere (icons/logos stay squircles) ── */
+.cmd-profile .uav,.cmd-profile .uav.ea{border-radius:50%}
+/* ── Stats: premium month navigator ── */
+.month-nav{background:var(--card-bg);border:1px solid var(--border);border-radius:var(--r-md);box-shadow:var(--sh-1);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);padding:8px 10px;gap:10px;margin-bottom:20px}
+.month-nav button{background:var(--fill-05);border:1px solid var(--border);border-radius:11px;padding:9px 15px;font-weight:700;transition:background .18s,border-color .18s,transform .12s}
+.month-nav button:hover{background:var(--acc-15);border-color:var(--border-l)}
+.month-nav button:active{transform:scale(.97)}
+.month-label{font-family:var(--font-display);font-size:1.1rem;font-weight:600;color:var(--white);letter-spacing:-.01em}
+/* ── Chart cards spacing consistency ── */
+.chart-wrap{border-radius:var(--r-lg);box-shadow:var(--sh-1);padding:20px 22px}
+.g2{gap:16px;margin-bottom:16px}
+/* ── Stat summary rows ── */
+.stat-row{padding:11px 0;border-bottom:1px solid var(--hairline);font-size:.88rem}
+.stat-row-label{color:var(--muted);font-weight:600}
+.stat-row-val{font-weight:800;color:var(--purple-xl);font-variant-numeric:tabular-nums}
+/* ── User stat cards (leaderboard) ── */
+.usc{background:var(--card-bg);border:1px solid var(--border);border-radius:var(--r-md);box-shadow:var(--sh-1);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);padding:14px 16px;transition:border-color .2s,transform .2s,box-shadow .2s}
+.usc:hover{border-color:var(--border-l);transform:translateY(-2px);box-shadow:var(--sh-2)}
+.usc-sn{font-family:var(--font-display);font-weight:600}
+/* ── Admin user rows ── */
+.ur{background:var(--card-bg);border:1px solid var(--border);border-radius:var(--r-md);box-shadow:var(--sh-1);padding:12px 15px;transition:border-color .2s}
+.ur:hover{border-color:var(--border-l)}
+/* ── My-stats hero + cards cohesion ── */
+.mystats-hero-card{border-radius:var(--r-lg);box-shadow:var(--sh-1)}
+.mystats-hero-num{font-family:var(--font-display);font-weight:600}
+.pstat-card{border-radius:var(--r-md);box-shadow:var(--sh-1);transition:transform .2s,box-shadow .2s,border-color .2s}
+.pstat-card:hover{transform:translateY(-2px);box-shadow:var(--sh-2);border-color:var(--border-l)}
+.pstat-num{font-family:var(--font-display);font-weight:600}
+.streak-card,.scard-streak,.countdown-card{border-radius:var(--r-lg);box-shadow:var(--sh-1)}
+/* ── Prayer / diary / checklist / watch cards: unified radius + hover ── */
+.pc,.de,.ci{border-radius:var(--r-md)}
+.ci{background:var(--card-bg);box-shadow:var(--sh-1)}
+.ci:hover,.pc:hover,.de:hover{border-color:var(--border-l)}
+.wc{border-radius:var(--r-lg);box-shadow:var(--sh-1)}
+/* ── Tags: refined, slightly squared for modern feel ── */
+.tag{border-radius:8px;padding:3px 9px;letter-spacing:.02em}
+.wtag{border-radius:8px}
+/* ── Modals: cohesive header + section labels ── */
+.modal{border:1px solid var(--border-l)}
+.modal h2{font-family:var(--font-display);font-weight:600;letter-spacing:-.01em;display:flex;align-items:center;gap:9px}
+.ns-row{border-bottom:1px solid var(--hairline)}
+.ep-e{border-radius:11px}
+.scard-streak,.scard{border-radius:var(--r-md)}
+/* ── Comment blocks cohesion ── */
+.comments-wrap{border-top:1px solid var(--hairline)}
+.c-body{background:var(--fill-05);border-radius:11px}
+.c-input{border-radius:11px}
+/* ── Watch popup + calendar polish ── */
+.cal-wrap{padding:20px 22px}
+.cal-day{border-radius:10px}
+.cal-popup{border-radius:var(--r-lg);box-shadow:var(--sh-3)}
+/* ── Loading spinner uses accent ── */
+.spin{border-top-color:var(--purple-l)}
 </style>
 </head>
 <body>
@@ -3513,9 +3572,9 @@ function renderStats(){
   const totalPrayers=reqs.reduce((a,r)=>a+(r.prayedBy||[]).length,0);
   const ansRate=reqs.length?Math.round((reqs.filter(r=>r.answered).length/reqs.length)*100):0;
   document.getElementById('statsOverviewCards').innerHTML=`
-    <div class="scard"><div class="snum" style="color:var(--purple-xl)">${mReqs.length}</div><div class="slbl">Žádostí v měsíci</div></div>
-    <div class="scard"><div class="snum" style="color:var(--green)">${mAns.length}</div><div class="slbl">Vyslyšených v měsíci</div></div>
-    <div class="scard"><div class="snum" style="color:var(--gold)">${mWatch.length}</div><div class="slbl">Stráží v měsíci</div></div>
+    <div class="bento-tile stat-tile"><div class="stat-tile-ic">🙏</div><div class="stat-tile-body"><div class="snum">${mReqs.length}</div><div class="slbl">Žádostí v měsíci</div></div></div>
+    <div class="bento-tile stat-tile"><div class="stat-tile-ic ok">✓</div><div class="stat-tile-body"><div class="snum">${mAns.length}</div><div class="slbl">Vyslyšených</div></div></div>
+    <div class="bento-tile stat-tile"><div class="stat-tile-ic gold">⌚</div><div class="stat-tile-body"><div class="snum">${mWatch.length}</div><div class="slbl">Stráží v měsíci</div></div></div>
   `;
 
   // Summary stats

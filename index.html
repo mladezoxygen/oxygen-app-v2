@@ -885,11 +885,9 @@ body{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-r
 ::-webkit-scrollbar-thumb:hover{background:var(--purple-l);background-clip:padding-box}
 ::-webkit-scrollbar-track{background:transparent}
 :focus-visible{outline:2px solid var(--purple-l);outline-offset:2px;border-radius:6px}
-[data-mode="light"] select,[data-mode="light"] .fg select,[data-mode="light"] select.rs{color-scheme:light}
 /* Softer, more premium ambient orbs */
 .orb{filter:blur(96px);opacity:.24}
 .o1{width:660px;height:660px}
-[data-mode="light"] .orb{opacity:.5;filter:blur(110px)}
 
 /* ── Display typography (Fraunces) ── */
 .alogo h2,.ph h1,.pendbox h2,.modal h2,.cal-title,.slogo-name,.ch-sidebar-title,.streak-num,.snum,.week-snum,.mystats-hero-num,.pstat-num,.usc-sn,.countdown-num,.month-label{letter-spacing:-.015em}
@@ -972,11 +970,7 @@ input:checked+.slider{background:var(--purple)}
 .alogo-icon{border-radius:20px;box-shadow:var(--sh-accent)}
 .atabs{background:var(--fill-05);border:1px solid var(--hairline);border-radius:13px}
 
-/* ── Appearance / mode segmented control ── */
-.mode-seg{flex:1;padding:9px 10px;border:none;border-radius:9px;background:transparent;color:var(--muted);font-family:var(--font-ui);font-size:.82rem;font-weight:700;cursor:pointer;transition:background .2s,color .2s,box-shadow .2s;display:flex;align-items:center;justify-content:center;gap:6px}
-.mode-seg:hover{color:var(--text)}
-.mode-seg.active{background:var(--purple);color:var(--on-accent);box-shadow:0 3px 12px var(--acc-35)}
-.theme-swatch{width:32px;height:32px;box-shadow:var(--sh-1)}
+.theme-swatch{width:34px;height:34px;box-shadow:var(--sh-1)}
 .theme-swatch.active{box-shadow:0 0 0 2px var(--bg-dark),0 0 0 4px var(--purple-l),var(--sh-1);border-color:transparent}
 
 /* ═══════════════════════════════════════════════════════════════════════════
@@ -1031,10 +1025,12 @@ input:checked+.slider{background:var(--purple)}
 /* Command bar carries the page title on desktop → hide redundant in-page header */
 @media(min-width:761px){.ph{display:none}}
 
-/* ── Online strip as a content card ── */
-.online-section{border:1px solid var(--border);border-radius:var(--r-md);background:var(--card-bg);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);padding:11px 16px;margin-bottom:18px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+/* ── Online strip as a content card (single-row, scrollable) ── */
+.online-section{border:1px solid var(--border);border-radius:var(--r-md);background:var(--card-bg);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);padding:10px 14px;margin-bottom:18px;display:flex;align-items:center;gap:14px}
 .online-section-title{margin:0;flex-shrink:0}
-.online-list{flex-direction:row!important;flex-wrap:wrap;gap:6px 14px!important}
+.online-list{flex:1;min-width:0;flex-direction:row!important;flex-wrap:nowrap!important;gap:8px!important;overflow-x:auto;overflow-y:hidden;padding-bottom:2px;scrollbar-width:none}
+.online-list::-webkit-scrollbar{display:none}
+.online-person{flex-shrink:0;background:var(--fill-05);border:1px solid var(--hairline);border-radius:22px;padding:4px 12px 4px 4px!important;gap:8px!important}
 
 /* ── Quick-add popover ── */
 .qadd-menu{position:fixed;z-index:600;background:var(--card-alpha-hi);border:1px solid var(--border-l);border-radius:15px;box-shadow:var(--sh-3);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);padding:6px;min-width:236px}
@@ -1068,9 +1064,12 @@ input:checked+.slider{background:var(--purple)}
   .bn .ni-ic{font-size:1.3rem;width:auto}
   .bn-label{font-size:.62rem;font-weight:700}
   .bn.on{color:var(--purple-xl)}
-  .online-section{display:none!important}
-  /* Neutralize legacy mobile chat offsets that assumed old topbar */
-  #sec-chat .chat-layout-outer{height:calc(100dvh - 56px - var(--bot-h) - 8px)}
+  /* Online strip stays visible on mobile, compact single row */
+  .online-section{padding:8px 12px;margin-bottom:14px}
+  .online-section-title{font-size:.6rem}
+  /* Chat fills the space between the top bar and the bottom nav, input above nav */
+  #sec-chat{padding:0!important;margin:0!important}
+  #sec-chat.on .chat-layout-outer{position:fixed;top:56px;left:0;right:0;height:calc(100dvh - 56px - var(--bot-h) - env(safe-area-inset-bottom))!important;min-height:0;border-radius:0;border-left:0;border-right:0;z-index:80}
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
@@ -1119,6 +1118,35 @@ input:checked+.slider{background:var(--purple)}
   .quick-grid{grid-template-columns:1fr 1fr}
   .hero-tile{min-height:0;padding:22px 18px}
   .hero-greet{font-size:1.6rem}
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   OXYGEN V2 — SECTION COMPOSER + FILTER TOOLBAR (used across all sections)
+   ═══════════════════════════════════════════════════════════════════════════ */
+.composer{background:var(--card-bg);border:1px solid var(--border);border-radius:var(--r-lg);box-shadow:var(--sh-1);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);overflow:hidden;margin-bottom:20px}
+.composer-head{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:13px 18px;border-bottom:1px solid var(--hairline);background:var(--acc-08)}
+.composer-title{font-family:var(--font-display);font-size:1.04rem;font-weight:600;color:var(--white);display:flex;align-items:center;gap:9px;letter-spacing:-.01em}
+.composer-body{padding:16px 18px}
+.composer-input{width:100%;background:var(--fill-06);border:1px solid var(--border);border-radius:var(--r-sm);color:var(--text);font-family:var(--font-ui);font-size:.95rem;line-height:1.55;padding:13px 15px;outline:none;resize:vertical;min-height:90px;transition:border-color .18s,box-shadow .18s,background .18s}
+.composer-input:focus{border-color:var(--purple-l);box-shadow:0 0 0 3px var(--acc-20);background:var(--fill-08)}
+.composer-input::placeholder{color:var(--muted)}
+.composer-input.oneline{min-height:0;resize:none;height:48px}
+.composer-foot{display:flex;align-items:flex-end;gap:12px;flex-wrap:wrap;margin-top:12px}
+.composer-foot .fg{margin-bottom:0}
+.composer-foot .fg.grow{flex:1;min-width:150px}
+.composer-submit{margin-left:auto;flex-shrink:0}
+/* Filter toolbar */
+.filterbar{display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin-bottom:18px}
+.filter-group{display:flex;align-items:center;gap:10px}
+.filter-label{font-size:.66rem;color:var(--muted);font-weight:800;letter-spacing:.09em;text-transform:uppercase;flex-shrink:0}
+.filterbar .push-right{margin-left:auto}
+@media(max-width:760px){
+  .composer-foot{gap:10px}
+  .composer-submit{margin-left:0;width:100%}
+  .composer-foot .fg.grow{min-width:120px}
+  .filterbar{gap:12px}
+  .filter-group{flex:1;min-width:100%;flex-direction:column;align-items:flex-start;gap:6px}
+  .filter-group .tabs{width:100%;overflow-x:auto}
 }
 </style>
 </head>
@@ -1218,7 +1246,6 @@ input:checked+.slider{background:var(--purple)}
       <div class="ni admin-only" data-sec="admin" style="display:none"><span class="ni-ic">⚙️</span><span class="ni-label">Admin</span><span class="nbadge" id="bAdmin" style="display:none">0</span></div>
     </nav>
     <div class="rail-bottom">
-      <button class="rail-icon-btn" onclick="toggleMode()" title="Světlý / tmavý režim">🌓</button>
       <button class="rail-icon-btn" onclick="showProfile()" title="Profil a nastavení">👤</button>
       <button class="rail-icon-btn danger" onclick="doLogout()" title="Odhlásit se">⏻</button>
     </div>
@@ -1319,33 +1346,33 @@ input:checked+.slider{background:var(--purple)}
     <!-- REQUESTS -->
     <div class="sec" id="sec-requests">
       <div class="ph"><h1>Žádosti o modlitbu</h1><p>Sdílejte, za co se chcete modlit společně</p></div>
-      <div class="card card-top" style="margin-bottom:16px">
-        <span class="lbl" style="margin-bottom:9px">✦ Přidat žádost</span>
-        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px">
-          <div class="fg" style="flex:1;margin-bottom:0"><label>Kategorie</label>
-            <select id="reqCat"><option value="osobní">Osobní</option><option value="rodina">Rodina</option><option value="zdraví">Zdraví</option><option value="vztahy">Vztahy</option><option value="práce">Práce/Škola</option><option value="duchovní">Duchovní růst</option><option value="jiné">Jiné</option></select>
-          </div>
-          <div class="fg" style="flex:1;margin-bottom:0"><label>Typ žádosti</label>
-            <select id="reqType"><option value="jednorázová">🕯 Jednorázová</option><option value="opakovaná">🔄 Opakovaná</option><option value="dlouhodobá">📅 Dlouhodobá</option></select>
-          </div>
+      <div class="composer">
+        <div class="composer-head">
+          <span class="composer-title">🙏 Nová žádost o modlitbu</span>
+          <button class="bs b-exp" onclick="exportRequests()">📥 Export</button>
         </div>
-        <div class="fg" style="margin-bottom:10px"><label>Žádost</label><textarea id="reqText" placeholder="Za co se máme modlit?" maxlength="600"></textarea></div>
-        <div style="display:flex;gap:7px;flex-wrap:wrap">
-          <button class="bp" style="width:auto;padding:9px 20px" onclick="addRequest()">🙏 Přidat žádost</button>
-          <button class="bs b-exp" onclick="exportRequests()">📥 Export Excel</button>
+        <div class="composer-body">
+          <textarea id="reqText" class="composer-input" placeholder="Za co se máme společně modlit?" maxlength="600"></textarea>
+          <div class="composer-foot">
+            <div class="fg grow"><label>Kategorie</label>
+              <select id="reqCat"><option value="osobní">Osobní</option><option value="rodina">Rodina</option><option value="zdraví">Zdraví</option><option value="vztahy">Vztahy</option><option value="práce">Práce/Škola</option><option value="duchovní">Duchovní růst</option><option value="jiné">Jiné</option></select>
+            </div>
+            <div class="fg grow"><label>Typ žádosti</label>
+              <select id="reqType"><option value="jednorázová">🕯 Jednorázová</option><option value="opakovaná">🔄 Opakovaná</option><option value="dlouhodobá">📅 Dlouhodobá</option></select>
+            </div>
+            <button class="bp composer-submit" style="width:auto;padding:12px 22px" onclick="addRequest()">🙏 Přidat žádost</button>
+          </div>
         </div>
       </div>
-      <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:14px">
-        <div>
-          <div style="font-size:.7rem;color:var(--muted);font-weight:700;letter-spacing:.05em;text-transform:uppercase;margin-bottom:5px">Stav</div>
+      <div class="filterbar">
+        <div class="filter-group"><span class="filter-label">Stav</span>
           <div class="tabs" style="margin-bottom:0">
             <button class="tab on" onclick="setRF('all',this)">Vše</button>
             <button class="tab" onclick="setRF('aktivní',this)">🕯 Aktivní</button>
             <button class="tab" onclick="setRF('answered',this)">✓ Vyslyšené</button>
           </div>
         </div>
-        <div>
-          <div style="font-size:.7rem;color:var(--muted);font-weight:700;letter-spacing:.05em;text-transform:uppercase;margin-bottom:5px">Typ</div>
+        <div class="filter-group"><span class="filter-label">Typ</span>
           <div class="tabs" style="margin-bottom:0">
             <button class="tab on" id="tabTypeAll" onclick="setRT('all',this)">Vše</button>
             <button class="tab" onclick="setRT('jednorázová',this)">🕯 Jednorázové</button>
@@ -1360,16 +1387,19 @@ input:checked+.slider{background:var(--purple)}
     <!-- CHECKLIST -->
     <div class="sec" id="sec-checklist">
       <div class="ph"><h1>Modlitební seznam</h1><p>Zapisujte a zaškrtávejte splněné modlitby</p></div>
-      <div class="card card-top" id="chkAddCard" style="margin-bottom:16px">
-        <span class="lbl" style="margin-bottom:9px">✦ Přidat do seznamu</span>
-        <div class="irow">
-          <div class="fg" style="flex:2"><label>Téma modlitby</label><input type="text" id="chkText" placeholder="Za koho nebo za co?" maxlength="200"></div>
-          <button class="bp irow-btn" style="padding:10px 15px;align-self:flex-end;white-space:nowrap" onclick="addChkItem()">+ Přidat</button>
+      <div class="composer" id="chkAddCard">
+        <div class="composer-head"><span class="composer-title">✅ Přidat do seznamu</span><button class="bs b-exp" onclick="exportChecklist()">📥 Export</button></div>
+        <div class="composer-body">
+          <div class="composer-foot" style="margin-top:0">
+            <div class="fg grow"><label>Téma modlitby</label><input type="text" id="chkText" placeholder="Za koho nebo za co se modlíme?" maxlength="200"></div>
+            <button class="bp composer-submit" style="width:auto;padding:12px 20px" onclick="addChkItem()">+ Přidat</button>
+          </div>
         </div>
       </div>
-      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:7px;margin-bottom:14px">
-        <div class="tabs" style="margin-bottom:0"><button class="tab on" onclick="setCF('all',this)">Vše</button><button class="tab" onclick="setCF('active',this)">Aktivní</button><button class="tab" onclick="setCF('done',this)">✓ Splněné</button></div>
-        <button class="bs b-exp" style="flex-shrink:0" onclick="exportChecklist()">📥 Export Excel</button>
+      <div class="filterbar">
+        <div class="filter-group"><span class="filter-label">Zobrazit</span>
+          <div class="tabs" style="margin-bottom:0"><button class="tab on" onclick="setCF('all',this)">Vše</button><button class="tab" onclick="setCF('active',this)">Aktivní</button><button class="tab" onclick="setCF('done',this)">✓ Splněné</button></div>
+        </div>
       </div>
       <div id="chkList"><div class="loading"><div class="spin"></div>Načítám…</div></div>
     </div>
@@ -1387,12 +1417,14 @@ input:checked+.slider{background:var(--purple)}
           <div style="display:flex;align-items:center;gap:5px;font-size:.71rem;color:var(--green)"><div style="width:9px;height:9px;border-radius:2px;background:rgba(6,214,160,.3)"></div>Moje stráž</div>
         </div>
       </div>
-      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:12px">
-        <div class="tabs" style="margin-bottom:0">
-          <button class="tab on" onclick="setWF('all',this)">Vše</button>
-          <button class="tab" onclick="setWF('curr',this)">⌚ Aktuální</button>
-          <button class="tab" onclick="setWF('future',this)">📅 Plánované</button>
-          <button class="tab" onclick="setWF('mine',this)">⭐ Moje</button>
+      <div class="filterbar">
+        <div class="filter-group"><span class="filter-label">Stráže</span>
+          <div class="tabs" style="margin-bottom:0">
+            <button class="tab on" onclick="setWF('all',this)">Vše</button>
+            <button class="tab" onclick="setWF('curr',this)">⌚ Aktuální</button>
+            <button class="tab" onclick="setWF('future',this)">📅 Plánované</button>
+            <button class="tab" onclick="setWF('mine',this)">⭐ Moje</button>
+          </div>
         </div>
       </div>
       <div id="watchList"><div class="loading"><div class="spin"></div>Načítám…</div></div>
@@ -1401,28 +1433,37 @@ input:checked+.slider{background:var(--purple)}
     <!-- ANON -->
     <div class="sec" id="sec-anon">
       <div class="ph"><h1>Anonymní formulář</h1><p>Pošli anonymní žádost – tým se za tebe bude modlit</p></div>
-      <div class="card card-top" style="max-width:490px;margin-bottom:22px">
-        <span class="lbl" style="margin-bottom:9px">✦ Anonymní žádost</span>
-        <div class="fg" style="margin-bottom:9px"><label>Kategorie</label>
-          <select id="anonCat"><option value="osobní">Osobní</option><option value="rodina">Rodina</option><option value="zdraví">Zdraví</option><option value="vztahy">Vztahy</option><option value="duchovní">Duchovní růst</option><option value="jiné">Jiné</option></select>
+      <div class="composer" style="max-width:600px">
+        <div class="composer-head"><span class="composer-title">📩 Anonymní žádost</span></div>
+        <div class="composer-body">
+          <textarea id="anonText" class="composer-input" placeholder="Napiš anonymně, za co se chceš modlit…" maxlength="800"></textarea>
+          <div class="composer-foot">
+            <div class="fg grow"><label>Kategorie</label>
+              <select id="anonCat"><option value="osobní">Osobní</option><option value="rodina">Rodina</option><option value="zdraví">Zdraví</option><option value="vztahy">Vztahy</option><option value="duchovní">Duchovní růst</option><option value="jiné">Jiné</option></select>
+            </div>
+            <button class="bp composer-submit" style="width:auto;padding:12px 22px" onclick="submitAnon()">📩 Odeslat anonymně</button>
+          </div>
         </div>
-        <div class="fg" style="margin-bottom:12px"><label>Tvoje žádost</label><textarea id="anonText" placeholder="Napiš anonymně, za co se chceš modlit…" maxlength="800" style="min-height:95px"></textarea></div>
-        <button class="bp" style="width:auto;padding:9px 20px" onclick="submitAnon()">📩 Odeslat anonymně</button>
       </div>
-      <div class="tabs" id="anonTabs" style="margin-bottom:14px"><button class="tab on" onclick="setAnonF('active',this)">Aktivní</button><button class="tab" onclick="setAnonF('archived',this)">📦 Archivované</button></div>
+      <div class="filterbar">
+        <div class="filter-group"><span class="filter-label">Zobrazit</span>
+          <div class="tabs" id="anonTabs" style="margin-bottom:0"><button class="tab on" onclick="setAnonF('active',this)">Aktivní</button><button class="tab" onclick="setAnonF('archived',this)">📦 Archivované</button></div>
+        </div>
+      </div>
       <div id="anonInbox"></div>
     </div>
 
     <!-- DIARY -->
     <div class="sec" id="sec-diary">
       <div class="ph"><h1>Boží hlas – Deník</h1><p>Sdílejte, co vám Bůh říká – verše, slova, myšlenky</p></div>
-      <div class="card card-top" id="diaryAddCard" style="margin-bottom:16px">
-        <span class="lbl" style="margin-bottom:9px">✦ Přidat zápis</span>
-        <div class="fg" style="margin-bottom:9px"><label>Verš (nepovinné)</label><input type="text" id="diaryScripture" placeholder="Filipským 4:6–7"></div>
-        <div class="fg" style="margin-bottom:10px"><label>Co ti Bůh říká?</label><textarea id="diaryText" placeholder="Napiš slovo, myšlenku nebo to, co vnímáš od Boha…" maxlength="2000" style="min-height:95px"></textarea></div>
-        <div style="display:flex;gap:7px;flex-wrap:wrap">
-          <button class="bp" style="width:auto;padding:9px 20px" onclick="addDiary()">📖 Sdílet zápis</button>
-          <button class="bs b-exp" onclick="exportDiary()">📥 Export Excel</button>
+      <div class="composer" id="diaryAddCard">
+        <div class="composer-head"><span class="composer-title">📖 Nový zápis do deníku</span><button class="bs b-exp" onclick="exportDiary()">📥 Export</button></div>
+        <div class="composer-body">
+          <div class="fg" style="margin-bottom:11px"><label>Verš (nepovinné)</label><input type="text" id="diaryScripture" placeholder="Filipským 4:6–7"></div>
+          <textarea id="diaryText" class="composer-input" placeholder="Napiš slovo, myšlenku nebo to, co vnímáš od Boha…" maxlength="2000"></textarea>
+          <div class="composer-foot">
+            <button class="bp composer-submit" style="width:auto;padding:12px 22px" onclick="addDiary()">📖 Sdílet zápis</button>
+          </div>
         </div>
       </div>
       <div id="diaryList"><div class="loading"><div class="spin"></div>Načítám…</div></div>
@@ -1465,7 +1506,7 @@ input:checked+.slider{background:var(--purple)}
             </div>
           </div>
           <div style="display:flex;flex:1;min-height:0;overflow:hidden">
-            <div style="flex:1;display:flex;flex-direction:column;min-width:0;overflow:hidden">
+            <div style="flex:1;display:flex;flex-direction:column;min-width:0;min-height:0;overflow:hidden">
               <div id="chatPinned"></div>
               <div class="chat-msgs" id="chatMsgs"><div class="loading"><div class="spin"></div>Načítám…</div></div>
               <div class="chat-typing" id="chatTyping"></div>
@@ -3462,14 +3503,9 @@ window.showProfile=()=>{
       <div id="profPrev" style="width:52px;height:52px;border-radius:50%;background:${_selEmoji?'var(--surface)':'linear-gradient(135deg,var(--purple),var(--purple-d))'};display:flex;align-items:center;justify-content:center;font-size:${_selEmoji?'1.8rem':'.95rem'};font-weight:800;color:#fff">${_selEmoji||ini(CU.name)}</div>
       <div><div style="font-weight:800;font-size:1rem;color:var(--white)">${esc(CU.name)}</div><div style="color:var(--muted);font-size:.82rem">@${esc(CU.username)}</div></div>
     </div>
-    <div class="lbl" style="margin-bottom:10px">🎨 Vzhled</div>
-    <div style="background:var(--fill-05);border:1px solid var(--hairline);border-radius:14px;padding:14px;margin-bottom:18px">
-      <div style="display:flex;gap:6px;background:var(--fill-06);border-radius:11px;padding:4px;margin-bottom:14px">
-        <button class="mode-seg ${_mode==='light'?'active':''}" data-mode-btn="light" onclick="setMode('light')">☀️ Světlý</button>
-        <button class="mode-seg ${_mode==='dark'?'active':''}" data-mode-btn="dark" onclick="setMode('dark')">🌙 Tmavý</button>
-      </div>
-      <div style="font-size:.7rem;color:var(--muted);font-weight:700;letter-spacing:.07em;text-transform:uppercase;margin-bottom:9px">Barevný motiv</div>
-      <div style="display:flex;gap:11px;flex-wrap:wrap">
+    <div class="lbl" style="margin-bottom:10px">🎨 Barevný motiv</div>
+    <div style="background:var(--fill-05);border:1px solid var(--hairline);border-radius:14px;padding:16px;margin-bottom:18px">
+      <div style="display:flex;gap:12px;flex-wrap:wrap">
         ${THEMES.map((t,i)=>`<div class="theme-swatch ${i===_activeTheme?'active':''}" onclick="pickTheme(${i})" title="${t.name}" style="background:linear-gradient(135deg,hsl(${t.h},${t.s}%,60%),hsl(${t.h},${t.s}%,42%))"></div>`).join('')}
       </div>
     </div>
@@ -3680,75 +3716,43 @@ const THEMES=[
   {name:'Rubín',h:348,s:62},
   {name:'Růže',h:322,s:56},
 ];
-let _activeTheme=0,_mode='dark';
+let _activeTheme=0;
 const _numS=v=>typeof v==='string'?parseInt(v):v;
-function applyTheme(idx,mode){
+function applyTheme(idx){
   if(idx==null)idx=_activeTheme;
-  if(mode==null)mode=_mode;
   idx=Math.max(0,Math.min(THEMES.length-1,idx|0));
-  _activeTheme=idx;_mode=(mode==='light')?'light':'dark';
-  const t=THEMES[idx],h=t.h,s=_numS(t.s),light=_mode==='light';
+  _activeTheme=idx;
+  const t=THEMES[idx],h=t.h,s=_numS(t.s);
   const r=document.documentElement.style,set=(k,v)=>r.setProperty(k,v);
-  document.documentElement.setAttribute('data-mode',_mode);
   // ── accent scale ──
-  if(light){
-    set('--purple',`hsl(${h},${s}%,46%)`);set('--purple-l',`hsl(${h},${s}%,54%)`);
-    set('--purple-xl',`hsl(${h},${Math.min(s+6,92)}%,40%)`);set('--purple-d',`hsl(${h},${s}%,34%)`);
-  }else{
-    set('--purple',`hsl(${h},${s}%,55%)`);set('--purple-l',`hsl(${h},${s}%,64%)`);
-    set('--purple-xl',`hsl(${h},${s}%,77%)`);set('--purple-d',`hsl(${h},${s}%,32%)`);
-  }
-  const accL=light?46:60;
+  set('--purple',`hsl(${h},${s}%,55%)`);set('--purple-l',`hsl(${h},${s}%,64%)`);
+  set('--purple-xl',`hsl(${h},${s}%,77%)`);set('--purple-d',`hsl(${h},${s}%,32%)`);
   const accA={'08':.08,'10':.1,'12':.12,'15':.15,'18':.18,'20':.2,'22':.22,'25':.25,'30':.3,'35':.35,'40':.4,'50':.5,'70':.7,'80':.8,'85':.85};
-  for(const k in accA)set('--acc-'+k,`hsla(${h},${s}%,${accL}%,${accA[k]})`);
+  for(const k in accA)set('--acc-'+k,`hsla(${h},${s}%,60%,${accA[k]})`);
   // ── neutral surface fills ──
   const fillA={'02':.02,'04':.04,'05':.05,'06':.06,'07':.07,'08':.08,'09':.09,'10':.1};
-  for(const k in fillA)set('--fill-'+k,light?`hsla(${h},18%,26%,${fillA[k]})`:`rgba(255,255,255,${fillA[k]})`);
-  let meta;
-  if(light){
-    set('--bg',`hsl(${h},32%,96%)`);set('--bg2',`hsl(${h},30%,93%)`);
-    set('--surface',`hsl(${h},30%,99.5%)`);set('--card',`hsl(${h},28%,100%)`);
-    set('--card-bg',`hsla(${h},40%,100%,.74)`);set('--card-bg-lo',`hsla(${h},40%,100%,.5)`);
-    set('--card-alpha-hi',`hsla(${h},40%,100%,.92)`);
-    set('--bg-dark',`hsla(${h},34%,98.5%,.92)`);set('--bg-dark2',`hsla(${h},32%,97%,.96)`);
-    set('--text',`hsl(${h},22%,16%)`);set('--muted',`hsl(${h},14%,44%)`);set('--white',`hsl(${h},28%,12%)`);
-    set('--border',`hsla(${h},${s}%,40%,.16)`);set('--border-l',`hsla(${h},${s}%,40%,.3)`);set('--hairline','rgba(20,14,32,.08)');
-    set('--orb2',`hsl(${h},70%,84%)`);set('--orb3',`hsl(${h},65%,88%)`);
-    set('--gold','hsl(38,82%,40%)');set('--green','hsl(160,68%,32%)');set('--red','hsl(348,78%,50%)');
-    set('--sh-1','0 1px 2px rgba(24,16,40,.06),0 2px 8px rgba(24,16,40,.07)');
-    set('--sh-2','0 6px 20px rgba(24,16,40,.1),0 2px 6px rgba(24,16,40,.06)');
-    set('--sh-3','0 24px 60px rgba(24,16,40,.18)');
-    meta=`hsl(${h},32%,96%)`;
-  }else{
-    set('--bg',`hsl(${h},42%,7%)`);set('--bg2',`hsl(${h},40%,10%)`);
-    set('--surface',`hsl(${h},36%,14%)`);set('--card',`hsl(${h},34%,17%)`);
-    set('--card-bg',`hsla(${h},40%,22%,.55)`);set('--card-bg-lo',`hsla(${h},40%,22%,.35)`);
-    set('--card-alpha-hi',`hsla(${h},42%,15%,.92)`);
-    set('--bg-dark',`hsla(${h},46%,6%,.9)`);set('--bg-dark2',`hsla(${h},46%,6%,.96)`);
-    set('--text',`hsl(${h},30%,95%)`);set('--muted',`hsl(${h},16%,66%)`);set('--white',`hsl(${h},40%,99%)`);
-    set('--border',`hsla(${h},${s}%,64%,.18)`);set('--border-l',`hsla(${h},${s}%,64%,.36)`);set('--hairline','rgba(255,255,255,.06)');
-    set('--orb2',`hsl(${h},60%,26%)`);set('--orb3',`hsl(${h},50%,34%)`);
-    set('--gold','#FFD27D');set('--green','#2FE0B0');set('--red','#FF6B8B');
-    set('--sh-1','0 1px 2px rgba(0,0,0,.28),0 2px 6px rgba(0,0,0,.22)');
-    set('--sh-2','0 4px 14px rgba(0,0,0,.34),0 2px 6px rgba(0,0,0,.22)');
-    set('--sh-3','0 18px 48px rgba(0,0,0,.5)');
-    meta=`hsl(${h},42%,7%)`;
-  }
-  document.querySelector('meta[name="theme-color"]')?.setAttribute('content',meta);
-  localStorage.setItem('oxygen_theme',idx);localStorage.setItem('oxygen_mode',_mode);
+  for(const k in fillA)set('--fill-'+k,`rgba(255,255,255,${fillA[k]})`);
+  set('--bg',`hsl(${h},42%,7%)`);set('--bg2',`hsl(${h},40%,10%)`);
+  set('--surface',`hsl(${h},36%,14%)`);set('--card',`hsl(${h},34%,17%)`);
+  set('--card-bg',`hsla(${h},40%,22%,.55)`);set('--card-bg-lo',`hsla(${h},40%,22%,.35)`);
+  set('--card-alpha-hi',`hsla(${h},42%,15%,.92)`);
+  set('--bg-dark',`hsla(${h},46%,6%,.9)`);set('--bg-dark2',`hsla(${h},46%,6%,.96)`);
+  set('--text',`hsl(${h},30%,95%)`);set('--muted',`hsl(${h},16%,66%)`);set('--white',`hsl(${h},40%,99%)`);
+  set('--border',`hsla(${h},${s}%,64%,.18)`);set('--border-l',`hsla(${h},${s}%,64%,.36)`);set('--hairline','rgba(255,255,255,.06)');
+  set('--orb2',`hsl(${h},60%,26%)`);set('--orb3',`hsl(${h},50%,34%)`);
+  set('--gold','#FFD27D');set('--green','#2FE0B0');set('--red','#FF6B8B');
+  set('--sh-1','0 1px 2px rgba(0,0,0,.28),0 2px 6px rgba(0,0,0,.22)');
+  set('--sh-2','0 4px 14px rgba(0,0,0,.34),0 2px 6px rgba(0,0,0,.22)');
+  set('--sh-3','0 18px 48px rgba(0,0,0,.5)');
+  document.querySelector('meta[name="theme-color"]')?.setAttribute('content',`hsl(${h},42%,7%)`);
+  localStorage.setItem('oxygen_theme',idx);
 }
-function loadTheme(){
-  const st=localStorage.getItem('oxygen_theme'),md=localStorage.getItem('oxygen_mode');
-  applyTheme(st!==null?parseInt(st):0,md||'dark');
-}
+function loadTheme(){const st=localStorage.getItem('oxygen_theme');applyTheme(st!==null?parseInt(st):0);}
 loadTheme();
-function _syncThemeUI(){
-  document.querySelectorAll('.theme-swatch').forEach((el,i)=>el.classList.toggle('active',i===_activeTheme));
-  document.querySelectorAll('[data-mode-btn]').forEach(el=>el.classList.toggle('active',el.getAttribute('data-mode-btn')===_mode));
-}
-window.pickTheme=idx=>{applyTheme(idx,_mode);_syncThemeUI();toast('🎨 Motiv: '+THEMES[idx].name);};
-window.setMode=m=>{applyTheme(_activeTheme,m);_syncThemeUI();toast(_mode==='light'?'☀️ Světlý režim':'🌙 Tmavý režim');};
-window.toggleMode=()=>window.setMode(_mode==='light'?'dark':'light');
+function _syncThemeUI(){document.querySelectorAll('.theme-swatch').forEach((el,i)=>el.classList.toggle('active',i===_activeTheme));}
+window.pickTheme=idx=>{applyTheme(idx);_syncThemeUI();toast('🎨 Motiv: '+THEMES[idx].name);};
+// mode toggle removed — kept as harmless no-ops for safety
+window.setMode=()=>{};window.toggleMode=()=>{};
 
 // ── STREAK ────────────────────────────────────────────────────────────────
 // logPrayerDay – called when user clicks "Modlím se" – saves today's date to prayerLog

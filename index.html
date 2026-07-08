@@ -1407,6 +1407,80 @@ body{letter-spacing:-.011em}
   *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.06ms!important;scroll-behavior:auto!important}
   .rip{display:none!important}
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   OXYGEN V2 — CUSTOM DATE PICKER · swatch fix · SECTION INTERNALS polish
+   ═══════════════════════════════════════════════════════════════════════════ */
+/* ── Custom date picker ── */
+.dp{position:relative}
+.dp-trigger{width:100%;display:flex;align-items:center;gap:10px;padding:11px 14px;background:var(--fill-06);border:1px solid var(--border);border-radius:11px;color:var(--text);font-family:var(--font-ui);font-size:.93rem;cursor:pointer;transition:border-color .18s,box-shadow .18s,background .18s;text-align:left}
+.dp-trigger:hover{border-color:var(--border-l);background:var(--fill-08)}
+.dp-ico{color:var(--purple-xl);flex-shrink:0;display:inline-flex}
+.dp-ico .ico{width:17px;height:17px}
+.dp-label{flex:1}
+.dp-trigger .cs-arrow{color:var(--muted);flex-shrink:0}
+.dp-pop{position:fixed;z-index:1400;background:var(--card);border:1px solid var(--border-l);border-radius:16px;box-shadow:var(--sh-3);padding:14px;width:294px}
+.dp-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.dp-title{font-family:var(--font-display);font-weight:700;font-size:.96rem;color:var(--white);letter-spacing:-.01em}
+.dp-nav{width:32px;height:32px;border-radius:9px;border:1px solid var(--border);background:var(--fill-05);color:var(--text);cursor:pointer;font-size:1.15rem;line-height:1;display:flex;align-items:center;justify-content:center;transition:background .16s,transform .14s}
+.dp-nav:hover{background:var(--acc-15);border-color:var(--border-l)}
+.dp-nav:active{transform:scale(.9)}
+.dp-dow{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;margin-bottom:7px}
+.dp-dow span{text-align:center;font-size:.63rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.03em}
+.dp-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px}
+.dp-cell{aspect-ratio:1;border:none;background:none;color:var(--text);font-family:var(--font-ui);font-size:.84rem;font-weight:500;border-radius:9px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .14s,color .14s,transform .12s}
+.dp-cell:hover:not(.dp-empty):not(.dp-dis){background:var(--acc-20);color:var(--purple-xl)}
+.dp-cell:active:not(.dp-dis):not(.dp-empty){transform:scale(.86)}
+.dp-empty{cursor:default}
+.dp-dis{opacity:.32;cursor:not-allowed}
+.dp-today{box-shadow:inset 0 0 0 1.5px var(--border-l)}
+.dp-sel{background:var(--purple)!important;color:#fff!important;font-weight:700}
+/* ── Theme swatch — kill any artifact, clean ring ── */
+.theme-swatch{outline:none!important;-webkit-tap-highlight-color:transparent;border:none!important;position:relative;overflow:hidden}
+.theme-swatch::after,.theme-swatch::before{content:none!important;display:none!important}
+.theme-swatch.active{overflow:visible;box-shadow:0 0 0 2px var(--card),0 0 0 4px var(--purple-l)}
+/* ── Prayer cards ── */
+.pc{padding:16px 18px}
+.pc.answered{border-color:color-mix(in srgb,var(--green) 32%,var(--border))!important}
+.pc.answered::before{background:var(--green)}
+.rn{color:var(--purple-xl);font-weight:700}
+.rt{font-size:.92rem;line-height:1.6;margin:9px 0 12px}
+.rf{gap:7px}
+.ab{color:var(--green);font-weight:600}
+.b-pray.on{background:var(--acc-25);border-color:var(--purple-l);color:var(--purple-xl)}
+/* ── Diary entries ── */
+.de{padding:18px 20px}
+.da{color:var(--purple-xl);font-weight:700;font-size:.9rem}
+.dt{font-size:.92rem;line-height:1.7;margin-top:9px}
+.ds{background:var(--acc-10);border-left:3px solid var(--purple-l);color:var(--purple-xl);border-radius:0 8px 8px 0;font-style:normal;font-weight:500}
+.diary-react-btn{border-radius:20px;background:var(--fill-05);border:1px solid var(--border)}
+.diary-react-btn.on{background:var(--acc-20);border-color:var(--purple-l)}
+/* ── Checklist items ── */
+.ci{padding:14px 16px;gap:13px}
+.cb{width:21px;height:21px;border-radius:7px;border:2px solid var(--border-l)}
+.cb.on{background:var(--purple);border-color:var(--purple)}
+.it{font-size:.9rem;line-height:1.5}
+/* ── Watch cards — professional status treatment ── */
+.wc{overflow:hidden;position:relative}
+.wc::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--border-l)}
+.wc.wc-curr::before{background:var(--gold)}
+.wc.wc-future::before{background:var(--purple-l)}
+.wc-header{padding:15px 17px 11px;border-bottom:1px solid var(--hairline)}
+.wc-status{font-size:.65rem;letter-spacing:.08em}
+.wc-leader{font-family:var(--font-display);font-weight:700;font-size:1rem;letter-spacing:-.01em}
+.wc-body{padding:13px 17px}
+.wtag{background:var(--acc-12);border:1px solid var(--border);color:var(--purple-xl);border-radius:8px;font-weight:600}
+.wc-av{border-radius:50%;border:2px solid var(--card)}
+.wc-av.leader-av{border-color:var(--gold)}
+.b-join{border-radius:9px;font-weight:700;background:var(--acc-12);border:1px solid var(--border-l);color:var(--purple-xl)}
+.b-join.on{background:color-mix(in srgb,var(--green) 20%,transparent);border-color:var(--green);color:var(--green)}
+.b-join:hover{background:var(--acc-20)}
+/* ── Watch day popup ── */
+.cal-popup{border-radius:18px;box-shadow:var(--sh-3);padding:18px}
+.cal-popup h3{font-family:var(--font-display);font-weight:700;letter-spacing:-.01em}
+.watch-popup-item{border-radius:12px;padding:12px 13px;background:var(--surface);border:1px solid var(--border)}
+.watch-popup-item.mine-item{border-color:color-mix(in srgb,var(--gold) 30%,var(--border))}
+/* ── Anon inbox cards inherit .pc styling ── */
 </style>
 </head>
 <body>
@@ -1910,6 +1984,51 @@ function countUp(el,target,dur=700){
   })(performance.now());
 }
 window.countUp=countUp;
+
+// ── Custom date picker (replaces native <input type=date>) ──────────────────
+function fmtDateCZ(iso){if(!iso)return'—';const d=new Date(iso+'T00:00:00');if(isNaN(d))return'—';return d.getDate()+'. '+(d.getMonth()+1)+'. '+d.getFullYear();}
+function dpTrigger(inputId,iso,minIso){
+  return `<div class="dp"><input type="hidden" id="${inputId}" value="${iso||''}">`
+    +`<button type="button" class="dp-trigger" onclick="openDatePicker(event,'${inputId}','${minIso||''}')">`
+    +`<span class="dp-ico" data-ico="clock"></span><span class="dp-label" id="${inputId}-lbl">${fmtDateCZ(iso)}</span>`
+    +`<svg class="cs-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button></div>`;
+}
+window.openDatePicker=function(e,inputId,minIso){
+  e.stopPropagation();
+  document.getElementById('dpPop')?.remove();
+  const input=document.getElementById(inputId);
+  const cur=input&&input.value?new Date(input.value+'T00:00:00'):new Date();
+  let viewM=new Date(cur.getFullYear(),cur.getMonth(),1);
+  const min=minIso?new Date(minIso+'T00:00:00'):null;
+  const todayIso=(()=>{const t=new Date();return t.getFullYear()+'-'+String(t.getMonth()+1).padStart(2,'0')+'-'+String(t.getDate()).padStart(2,'0');})();
+  const pop=document.createElement('div');pop.className='dp-pop';pop.id='dpPop';
+  function render(){
+    const y=viewM.getFullYear(),mo=viewM.getMonth();
+    const mn=viewM.toLocaleDateString('cs-CZ',{month:'long',year:'numeric'});
+    const sd=(new Date(y,mo,1).getDay()+6)%7,dim=new Date(y,mo+1,0).getDate();
+    let cells='';for(let i=0;i<sd;i++)cells+='<span class="dp-cell dp-empty"></span>';
+    for(let d=1;d<=dim;d++){
+      const ci=y+'-'+String(mo+1).padStart(2,'0')+'-'+String(d).padStart(2,'0');
+      const dis=min&&new Date(y,mo,d)<min;
+      cells+=`<button type="button" class="dp-cell${dis?' dp-dis':''}${input.value===ci?' dp-sel':''}${ci===todayIso?' dp-today':''}" ${dis?'disabled':`onclick="dpPick('${inputId}','${ci}')"`}>${d}</button>`;
+    }
+    pop.innerHTML=`<div class="dp-head"><button type="button" class="dp-nav" onclick="dpNav(-1)">‹</button><span class="dp-title">${mn.charAt(0).toUpperCase()+mn.slice(1)}</span><button type="button" class="dp-nav" onclick="dpNav(1)">›</button></div>`
+      +`<div class="dp-dow"><span>po</span><span>út</span><span>st</span><span>čt</span><span>pá</span><span>so</span><span>ne</span></div><div class="dp-grid">${cells}</div>`;
+  }
+  window.dpNav=d=>{viewM.setMonth(viewM.getMonth()+d);render();};
+  render();document.body.appendChild(pop);
+  const r=e.currentTarget.getBoundingClientRect();
+  let top=r.bottom+6,left=r.left;
+  if(left+pop.offsetWidth>innerWidth-8)left=innerWidth-pop.offsetWidth-8;
+  if(top+pop.offsetHeight>innerHeight-8)top=Math.max(8,r.top-pop.offsetHeight-6);
+  pop.style.top=Math.max(8,top)+'px';pop.style.left=Math.max(8,left)+'px';
+  setTimeout(()=>document.addEventListener('click',function cl(ev){if(!ev.target.closest('#dpPop')&&!ev.target.closest('.dp-trigger')){pop.remove();document.removeEventListener('click',cl);}}),10);
+};
+window.dpPick=function(inputId,iso){
+  const input=document.getElementById(inputId);if(input)input.value=iso;
+  const lbl=document.getElementById(inputId+'-lbl');if(lbl)lbl.textContent=fmtDateCZ(iso);
+  document.getElementById('dpPop')?.remove();
+};
 
 // ── HELPERS ───────────────────────────────────────────────────────────────
 const esc=s=>String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/\n/g,'<br>');
@@ -2720,7 +2839,7 @@ window.calClick=(y,mo,d,e)=>{
     inner+=`<div style="border-top:1px solid var(--border);margin-top:${watches.length?'10':'0'}px;padding-top:12px">
       <div style="font-size:.73rem;font-weight:800;color:var(--purple-xl);text-transform:uppercase;letter-spacing:.05em;margin-bottom:10px">+ Přidat novou stráž</div>
       ${whoField}
-      <div class="fg" style="margin-bottom:8px"><label>Do data (vícedenní stráž)</label><input type="date" id="cpE" value="${iso}" min="${iso}"></div>
+      <div class="fg" style="margin-bottom:8px"><label>Do data (vícedenní stráž)</label>${dpTrigger('cpE',iso,iso)}</div>
       <div class="fg" style="margin-bottom:10px"><label>Zaměření / témata (čárkou)</label><input type="text" id="cpT" placeholder="Mládež, jednota, vedení…" maxlength="200"></div>
       <button class="bp" style="padding:9px;width:100%" onclick="saveCalWatch('${iso}')">Uložit stráž</button>
     </div>`;
@@ -2730,7 +2849,7 @@ window.calClick=(y,mo,d,e)=>{
   // Append to DOM first so initCustomSelects can find selects
   popup.style.visibility='hidden';
   document.body.appendChild(popup);
-  initCustomSelects(popup);
+  initCustomSelects(popup);injectIcons(popup);
   const rect=e.currentTarget.getBoundingClientRect();
   const popH=popup.offsetHeight;
   const popW=popup.offsetWidth||300;
@@ -4005,7 +4124,7 @@ function startOnline(){
       el.innerHTML=av
         +'<div style="min-width:0;overflow:hidden">'
         +'<div style="display:flex;align-items:center;gap:4px;white-space:nowrap;overflow:hidden">'
-        +'<span style="font-size:.78rem;overflow:hidden;text-overflow:ellipsis;max-width:90px">'+esc(u.name)+(isMe?' <span style="color:var(--muted);font-size:.68rem">(ty)</span>':'')+'</span>'
+        +'<span style="font-size:.78rem;white-space:nowrap">'+esc(u.name)+(isMe?' <span style="color:var(--muted);font-size:.68rem">(ty)</span>':'')+'</span>'
         +(roleLabel?'<span class="urole '+roleCls+'" style="font-size:.62rem;padding:1px 5px;flex-shrink:0">'+roleLabel+'</span>':'')
         +'<span class="online-streak" style="font-size:.68rem;color:'+(s>0?'var(--gold)':'var(--muted)')+';flex-shrink:0">🔥'+(s>0?s:0)+'</span>'
         +'</div></div>';
@@ -4046,21 +4165,21 @@ function applyTheme(idx){
   // ── neutral surface fills (subtle light overlays) ──
   const fillA={'02':.02,'04':.03,'05':.04,'06':.05,'07':.06,'08':.07,'09':.08,'10':.09};
   for(const k in fillA)set('--fill-'+k,`rgba(255,255,255,${fillA[k]})`);
-  // ── neutral graphite backgrounds (flat, no tint) ──
-  set('--bg',`hsl(${NH},13%,8%)`);set('--bg2',`hsl(${NH},12%,10%)`);
-  set('--surface',`hsl(${NH},11%,13%)`);set('--card',`hsl(${NH},11%,13%)`);
-  set('--card-bg',`hsl(${NH},11%,13%)`);set('--card-bg-lo',`hsl(${NH},12%,11%)`);
-  set('--card-alpha-hi',`hsl(${NH},13%,11%)`);
-  set('--bg-dark',`hsl(${NH},14%,7%)`);set('--bg-dark2',`hsl(${NH},13%,9%)`);
-  set('--text',`hsl(${NH},14%,96%)`);set('--muted',`hsl(${NH},8%,56%)`);set('--white','#ffffff');
-  set('--border',`hsl(${NH},10%,20%)`);set('--border-l',`hsl(${NH},10%,28%)`);set('--hairline',`hsl(${NH},10%,17%)`);
-  set('--orb2',`hsl(${NH},13%,9%)`);set('--orb3',`hsl(${NH},13%,9%)`);
+  // ── tinted graphite backgrounds (subtly follow the motif hue) ──
+  set('--bg',`hsl(${h},20%,8%)`);set('--bg2',`hsl(${h},19%,10%)`);
+  set('--surface',`hsl(${h},17%,13.5%)`);set('--card',`hsl(${h},16%,14%)`);
+  set('--card-bg',`hsl(${h},16%,14%)`);set('--card-bg-lo',`hsl(${h},17%,11.5%)`);
+  set('--card-alpha-hi',`hsl(${h},18%,11%)`);
+  set('--bg-dark',`hsl(${h},22%,7%)`);set('--bg-dark2',`hsl(${h},20%,9%)`);
+  set('--text',`hsl(${h},18%,96%)`);set('--muted',`hsl(${h},10%,58%)`);set('--white','#ffffff');
+  set('--border',`hsl(${h},14%,21%)`);set('--border-l',`hsl(${h},15%,30%)`);set('--hairline',`hsl(${h},13%,18%)`);
+  set('--orb2',`hsl(${h},18%,10%)`);set('--orb3',`hsl(${h},18%,10%)`);
   set('--gold','hsl(42,88%,64%)');set('--green','hsl(150,58%,54%)');set('--red','hsl(352,80%,66%)');
   set('--sh-1','0 1px 2px rgba(0,0,0,.3)');
   set('--sh-2','0 6px 20px rgba(0,0,0,.35)');
   set('--sh-3','0 24px 60px rgba(0,0,0,.55)');
   set('--sh-accent','none');
-  document.querySelector('meta[name="theme-color"]')?.setAttribute('content',`hsl(${NH},13%,8%)`);
+  document.querySelector('meta[name="theme-color"]')?.setAttribute('content',`hsl(${h},20%,8%)`);
   localStorage.setItem('oxygen_theme',idx);
 }
 function loadTheme(){const st=localStorage.getItem('oxygen_theme');applyTheme(st!==null?parseInt(st):0);}

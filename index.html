@@ -1481,6 +1481,115 @@ body{letter-spacing:-.011em}
 .watch-popup-item{border-radius:12px;padding:12px 13px;background:var(--surface);border:1px solid var(--border)}
 .watch-popup-item.mine-item{border-color:color-mix(in srgb,var(--gold) 30%,var(--border))}
 /* ── Anon inbox cards inherit .pc styling ── */
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   OXYGEN V4 — LABELED SIDEBAR (desktop) + MOBILE PERFECTION
+   Full menu names that sit cleanly in the UI · pixel-tuned phone layout.
+   Cosmetic/append-only — no logic, selectors or IDs changed.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ── Logo lockup: icon badge + wordmark (used in sidebar & mobile drawer) ── */
+.rail-logo{width:auto!important;height:auto!important;background:none!important;border-radius:0!important;
+  display:flex;align-items:center;gap:11px;padding:2px 6px;overflow:hidden}
+.rail-logo-icon{width:40px;height:40px;border-radius:12px;background:linear-gradient(135deg,var(--purple),var(--purple-d));
+  display:flex;align-items:center;justify-content:center;font-size:1.35rem;color:#fff;flex-shrink:0}
+.rail-logo-text{display:flex;flex-direction:column;line-height:1.1;min-width:0}
+.rail-logo-name{font-family:var(--font-display);font-size:1.18rem;font-weight:700;color:var(--white);letter-spacing:-.01em}
+.rail-logo-sub{font-size:.66rem;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;margin-top:2px;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* ── DESKTOP (≥761px): wide, labeled navigation sidebar ── */
+@media(min-width:761px){
+  :root{--rail-w:222px}
+  .rail{align-items:stretch;padding:18px 12px 14px}
+  .rail-logo{margin:0 4px 16px}
+  .rail-nav{align-items:stretch;padding:0 2px;gap:2px}
+  .rail .ni{flex-direction:row;justify-content:flex-start;gap:12px;padding:10px 12px;border-radius:11px;width:auto}
+  .rail .ni-ic{width:22px;flex-shrink:0;text-align:center;font-size:1.15rem}
+  .rail .ni-ic .ico,.rail .ni-ic svg{width:21px;height:21px}
+  .rail .ni-label{font-size:.875rem;font-weight:600;text-align:left;line-height:1.25;letter-spacing:0;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1;min-width:0}
+  .rail .ni.on .ni-label{font-weight:700}
+  .rail .ni.on::before{left:-12px;top:50%;height:22px}
+  .rail .nbadge{position:static;margin:0 0 0 auto;top:auto;right:auto;min-width:19px;height:19px;
+    display:flex;align-items:center;justify-content:center;padding:0 6px;font-size:.64rem;border-radius:10px}
+  .rail-bottom{flex-direction:row;justify-content:flex-start;gap:8px;width:auto;padding:12px 4px 0}
+}
+
+/* ── MOBILE PERFECTION (≤760px) ── */
+@media(max-width:760px){
+  /* Drawer: comfortable spacing + tap targets, full labels already fit */
+  .rail{width:min(84vw,300px);padding:16px 12px calc(16px + env(safe-area-inset-bottom))}
+  .rail-logo{margin:2px 4px 16px}
+  .rail-nav{gap:3px}
+  .rail .ni{padding:13px 14px;gap:14px;border-radius:13px}
+  .rail .ni-label{font-size:.98rem;font-weight:600}
+  .rail .ni-ic{width:24px}
+  .rail .ni-ic .ico,.rail .ni-ic svg{width:22px;height:22px}
+  .rail .nbadge{min-width:20px;height:20px;display:flex;align-items:center;justify-content:center;padding:0 6px;font-size:.66rem;border-radius:10px}
+  .rail-bottom{gap:10px;padding-top:14px}
+  .rail-icon-btn{flex:1;height:46px;border-radius:13px}
+
+  /* Top bar: brand → shows the live section title, tidy weight */
+  .mobbar{height:calc(56px);padding:0 10px}
+  .mobbar-title{font-size:1.12rem;font-weight:700;letter-spacing:-.01em;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:62vw;text-align:center}
+  .mobbar-btn{width:42px;height:42px}
+
+  /* Bottom tab bar: crisp active indicator + generous touch targets */
+  .botnav{height:calc(var(--bot-h) + env(safe-area-inset-bottom))}
+  .bn{position:relative;gap:4px;padding:7px 0 0;min-width:0}
+  .bn::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%) scaleX(0);transform-origin:center;
+    width:24px;height:3px;border-radius:0 0 4px 4px;background:var(--purple-l);transition:transform .22s cubic-bezier(.34,1.56,.64,1)}
+  .bn.on::before{transform:translateX(-50%) scaleX(1)}
+  .bn.on .ni-ic{transform:translateY(-1px)}
+  .bn-label{font-size:.6rem;font-weight:700;letter-spacing:.005em;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding:0 2px}
+  .bn .ni-ic .ico,.bn .ni-ic svg{width:22px;height:22px}
+
+  /* Content rhythm: tighter gutters, breathing room above/below fixed bars */
+  .mc{padding:66px 13px calc(var(--bot-h) + env(safe-area-inset-bottom) + 16px)!important}
+  .ph{display:block;margin-bottom:16px}
+  .ph h1{font-size:1.32rem}
+  .ph p{font-size:.82rem}
+
+  /* Cards & bento full-bleed, comfortable padding */
+  .card,.bento-tile,.composer{padding:16px 15px}
+  .bento{gap:12px}
+  .hero-tile{padding:20px 17px}
+  .hero-greet{font-size:1.55rem}
+
+  /* Composer & filters stack cleanly, full-width submit */
+  .composer-foot{gap:10px}
+  .composer-submit,.composer-submit .bp{width:100%}
+  .filterbar{gap:12px}
+
+  /* Quick-add popover as a bottom sheet — thumb-friendly */
+  .qadd-menu{position:fixed!important;left:10px!important;right:10px!important;bottom:calc(var(--bot-h) + env(safe-area-inset-bottom) + 12px)!important;
+    top:auto!important;width:auto!important;min-width:0;padding:8px;border-radius:16px}
+  .qadd-item{padding:14px 14px;font-size:.95rem;border-radius:12px}
+
+  /* Modals: near full-width sheet, safe from the notch and home bar */
+  .modal{width:100%;max-width:100%;max-height:calc(100dvh - 24px);border-radius:20px;padding:20px 17px}
+
+  /* Notification panel spans the width nicely */
+  .notif-panel{top:56px!important;left:8px!important;right:8px!important;width:auto!important;max-height:70vh}
+
+  /* Prayer / diary / checklist text a touch larger for readability */
+  .rt,.dt,.it{font-size:.95rem}
+
+  /* Stat tiles: 2-up grid reads better than 3 cramped columns */
+  .dash-stats{grid-template-columns:repeat(2,1fr)}
+  .dash-stats>*:nth-child(3){grid-column:1 / -1}
+
+  /* Kill any accidental horizontal scroll */
+  html,body{max-width:100%;overflow-x:hidden}
+}
+
+/* Very small phones: keep 5-tab bar legible */
+@media(max-width:360px){
+  .bn-label{font-size:.55rem}
+  .bn .ni-ic .ico,.bn .ni-ic svg{width:21px;height:21px}
+  .mobbar-title{font-size:1.05rem;max-width:56vw}
+}
 </style>
 </head>
 <body>
@@ -1565,18 +1674,18 @@ body{letter-spacing:-.011em}
 <div id="mainApp">
   <!-- ICON RAIL (desktop) / full-menu drawer (mobile) -->
   <aside class="rail" id="sb">
-    <div class="rail-logo" title="Oxygen · Modlitební tým"><div class="rail-logo-icon">✝</div></div>
+    <div class="rail-logo" title="Oxygen · Modlitební tým"><div class="rail-logo-icon">✝</div><div class="rail-logo-text"><span class="rail-logo-name">Oxygen</span><span class="rail-logo-sub">Modlitební tým</span></div></div>
     <nav class="rail-nav">
       <div class="ni on" data-sec="dashboard"><span class="ni-ic" data-ico="home"></span><span class="ni-label">Přehled</span></div>
-      <div class="ni" data-sec="requests"><span class="ni-ic" data-ico="hands"></span><span class="ni-label">Žádosti</span><span class="nbadge" id="bReq" style="display:none">0</span></div>
-      <div class="ni" data-sec="anon"><span class="ni-ic" data-ico="mail"></span><span class="ni-label">Anonym</span><span class="nbadge" id="bAnon" style="display:none">0</span></div>
-      <div class="ni" data-sec="checklist"><span class="ni-ic" data-ico="list"></span><span class="ni-label">Seznam</span><span class="nbadge" id="bChk" style="display:none">0</span></div>
-      <div class="ni" data-sec="watch"><span class="ni-ic" data-ico="clock"></span><span class="ni-label">Stráž</span></div>
+      <div class="ni" data-sec="requests"><span class="ni-ic" data-ico="hands"></span><span class="ni-label">Žádosti o modlitbu</span><span class="nbadge" id="bReq" style="display:none">0</span></div>
+      <div class="ni" data-sec="anon"><span class="ni-ic" data-ico="mail"></span><span class="ni-label">Anonymní žádosti</span><span class="nbadge" id="bAnon" style="display:none">0</span></div>
+      <div class="ni" data-sec="checklist"><span class="ni-ic" data-ico="list"></span><span class="ni-label">Modlitební seznam</span><span class="nbadge" id="bChk" style="display:none">0</span></div>
+      <div class="ni" data-sec="watch"><span class="ni-ic" data-ico="clock"></span><span class="ni-label">Modlitební stráž</span></div>
       <div class="ni" data-sec="diary"><span class="ni-ic" data-ico="book"></span><span class="ni-label">Deník</span></div>
       <div class="ni" data-sec="chat"><span class="ni-ic" data-ico="chat"></span><span class="ni-label">Chat</span><span class="nbadge" id="bChat" style="display:none">!</span></div>
       <div class="ni" data-sec="stats"><span class="ni-ic" data-ico="chart"></span><span class="ni-label">Statistiky</span></div>
-      <div class="ni" data-sec="my-stats"><span class="ni-ic" data-ico="star"></span><span class="ni-label">Moje</span></div>
-      <div class="ni admin-only" data-sec="admin" style="display:none"><span class="ni-ic" data-ico="shield"></span><span class="ni-label">Admin</span><span class="nbadge" id="bAdmin" style="display:none">0</span></div>
+      <div class="ni" data-sec="my-stats"><span class="ni-ic" data-ico="star"></span><span class="ni-label">Moje statistiky</span></div>
+      <div class="ni admin-only" data-sec="admin" style="display:none"><span class="ni-ic" data-ico="shield"></span><span class="ni-label">Administrace</span><span class="nbadge" id="bAdmin" style="display:none">0</span></div>
     </nav>
     <div class="rail-bottom">
       <button class="rail-icon-btn" onclick="showProfile()" title="Profil a nastavení" data-ico="user"></button>
@@ -1608,7 +1717,7 @@ body{letter-spacing:-.011em}
   <!-- MOBILE TOP BAR -->
   <div class="mobbar">
     <button class="mobbar-btn" onclick="toggleSB()" aria-label="Menu" data-ico="menu"></button>
-    <span class="mobbar-title">Oxygen</span>
+    <span class="mobbar-title" id="mobPageTitle">Oxygen</span>
     <button class="mobbar-btn" onclick="toggleNotifPanel()" style="position:relative" aria-label="Oznámení"><span data-ico="bell"></span><span class="notif-dot" id="notifDot2" style="position:absolute;top:6px;right:6px;width:8px;height:8px;background:var(--red);border-radius:50%;border:2px solid var(--bg-dark2);display:none"></span></button>
   </div>
 
@@ -2373,7 +2482,10 @@ window.navigate=function navigate(id){
   if(id==='chat'){setTimeout(()=>{const el=document.getElementById('chatInput');if(el){el.style.height='44px';}},50);}
   // sync command-bar title + reset search
   const _t=document.querySelector('#sec-'+id+' .ph h1'),_pt=document.getElementById('pageTitle');
-  if(_pt){const _lbl=document.querySelector('.rail-nav .ni[data-sec="'+id+'"] .ni-label');_pt.textContent=((_t?_t.textContent:_lbl?_lbl.textContent:'')||'').trim()||'Oxygen';}
+  const _lbl=document.querySelector('.rail-nav .ni[data-sec="'+id+'"] .ni-label');
+  const _title=((_t?_t.textContent:_lbl?_lbl.textContent:'')||'').trim()||'Oxygen';
+  if(_pt)_pt.textContent=_title;
+  const _mpt=document.getElementById('mobPageTitle');if(_mpt)_mpt.textContent=_title;
   const _gs=document.getElementById('globalSearch');if(_gs&&_gs.value){_gs.value='';globalSearch('');}
   setTimeout(initCustomSelects,30);injectIcons();
 }
